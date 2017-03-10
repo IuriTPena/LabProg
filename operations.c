@@ -10,7 +10,7 @@ Polinomio *normalize(LinkedList *l){
 	LinkedList *aux = NULL;
 	LinkedList *p = l;
 
-	for(; l!=NULL; l=l->next){
+	for(; l!=NULL; l=l-> next){
 		for(p=l->next ; p!=NULL ; p=p->next){
 			if(l->pols.pol.var == p->pols.pol.var && l->pols.pol.exp == p->pols.pol.exp && p->pols.pol.visited == false){
 				aux->pols.pol.exp = l->pols.pol.exp;
