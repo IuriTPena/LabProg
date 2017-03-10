@@ -2,6 +2,10 @@
 #include "poli.h"
 
 int main (int argc, char **argv) {
-    printf("ols");
+    printf("Inserir polinómio\n");
+    
+
+
+
     return 0;
 }

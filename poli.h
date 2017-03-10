@@ -7,15 +7,12 @@ typedef struct _LinkedList LinkedList;
 struct _Polinomio {
     enum { CONS, POLI } kind;
     union {
+        int cons;
         struct {
-            char *op;
-            int cons;
-        } con;
-        struct {
-            char *op;
-            int coe;
+            float coe;
             int exp;
             char *var;
+            bool visited;
         } pol;
     } pols;
 };
@@ -25,5 +22,8 @@ struct _LinkedList {
     LinkedList *next;
 };
 
+Polinomio *makeCons(int cons);
+Polinomio *makePoly(float coe, int exp, char *var);
+LinkedList *makeList(Polinomio *pol, LinkedList *next);
 
 #endif
