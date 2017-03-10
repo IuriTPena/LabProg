@@ -8,7 +8,7 @@ LinkedList *makeList(Polinomio *pol, LinkedList *next);
 
 Polinomio *makeCons(char *op, int coe) {
     Polinomio *node = (Polinomio*) malloc(sizeof(Polinomio));
-    node->kind = POLI;
+    node->kind = CONS;
     node->pols.pol.op = op;
     node->pols.pol.coe = coe;
     return node;
