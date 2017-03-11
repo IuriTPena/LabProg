@@ -12,7 +12,7 @@ struct _Polinomio {
         int cons;
         struct {
             float coe;
-            char *var;
+            char var[1];
             int exp;
             bool visited;
         } pol;

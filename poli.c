@@ -1,5 +1,7 @@
 #include <stdlib.h>
+#include <string.h>
 #include "poli.h"
+
 
 Polinomio *makeCons(int cons);                          //cria constante
 Polinomio *makePoly(float coe, char *var, int exp);     //cria polinomio
@@ -17,7 +19,7 @@ Polinomio *makePoly(float coe, char *var, int exp) {
     Polinomio *node = (Polinomio*) malloc(sizeof(Polinomio));
     node->kind = POLI;
     node->pols.pol.coe = coe;
-    node->pols.pol.var = var;
+    strcpy(var,node->pols.pol.var);
     node->pols.pol.exp = exp;
     node->pols.pol.visited = false;
     return node;
