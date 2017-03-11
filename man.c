@@ -9,13 +9,12 @@ int main (int argc, char **argv) {
     int more = 0;
     do {
         float coe = 0.0;
-        char var[2];
+        char var[VARSIZE];
         int exp = 0;
         printf("Coeficiente: ");
         scanf("%f", &coe);
         printf("Variável: ");
-        scanf("%s");
-        fgets(var, sizeof(var), stdin);
+        scanf("%s", var);
         printf("Expoente: ");
         scanf("%d", &exp);
         
