@@ -19,7 +19,7 @@ Polinomio *makePoly(float coe, char *var, int exp) {
     Polinomio *node = (Polinomio*) malloc(sizeof(Polinomio));
     node->kind = POLI;
     node->pols.pol.coe = coe;
-    strcpy(var,node->pols.pol.var);
+    memcpy(node->pols.pol.var, var, VARSIZE);
     node->pols.pol.exp = exp;
     node->pols.pol.visited = false;
     return node;

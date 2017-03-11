@@ -2,6 +2,7 @@
 #define __poli_h__
 #include <stdbool.h>
 
+#define VARSIZE 10
 
 typedef struct _Polinomio Polinomio;
 typedef struct _LinkedList LinkedList;
@@ -12,7 +13,7 @@ struct _Polinomio {
         int cons;
         struct {
             float coe;
-            char var[1];
+            char var[VARSIZE];
             int exp;
             bool visited;
         } pol;
