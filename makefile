@@ -1,15 +1,17 @@
 CC = gcc
 CFLAGS = -g -Wall
-OBJECTS = main.o poli.o
+OBJECTS = main.o poli.o operations.o
 
 all: main
 
 main: $(OBJECTS) poli.h
 	$(CC) $(CFLAGS) $(OBJECTS) -o main
 
-main.o: poli.h
+main.o: poli.h operations.h
 
-poli.o: poli.h
+poli.o: poli.h operations.h
+
+operations.o: poli.h operations.h
 
 clean:
-	rm -f main main.o poli.o
+	rm -f main main.o poli.o operations.o
