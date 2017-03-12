@@ -1,6 +1,5 @@
 #include <stdio.h>
-#include "poli.h"
-//#include "operations.h"
+#include "operations.h"
 
 int printPolinomio(LinkedList *l);
 LinkedList *scanMonomio(LinkedList *l);
