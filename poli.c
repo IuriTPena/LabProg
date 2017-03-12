@@ -19,9 +19,9 @@ Monomio *makeMono(float coe, char *var, int exp) {
     return node;
 }
 
-LinkedList *makeList(Monomio *mono, LinkedList *next) {
+LinkedList *makeList(Monomio *mon, LinkedList *next) {
     LinkedList *node = (LinkedList*) malloc(sizeof(LinkedList));
-    node->mono = mono;
+    node->mon = mon;
     node->next = next;
     return node;
 }

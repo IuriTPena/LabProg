@@ -22,7 +22,7 @@ struct _Monomio {
 };
 
 struct _LinkedList {
-    Monomio *mono;
+    Monomio *mon;
     LinkedList *next;
 };
 
