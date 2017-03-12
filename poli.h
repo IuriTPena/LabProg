@@ -1,14 +1,15 @@
 #ifndef __poli_h__
 #define __poli_h__
+
 #include <stdbool.h>
 
 #define VARSIZE 10
 
-typedef struct _Polinomio Polinomio;
+typedef struct _Monomio Monomio;
 typedef struct _LinkedList LinkedList;
 
-struct _Polinomio {
-    enum { CONS, POLI } kind;
+struct _Monomio {
+    enum { CONS, MONO } kind;
     union {
         int cons;
         struct {
@@ -16,17 +17,17 @@ struct _Polinomio {
             char var[VARSIZE];
             int exp;
             bool visited;
-        } pol;
-    } pols;
+        } mono;
+    } monos;
 };
 
 struct _LinkedList {
-    Polinomio *pol;
+    Monomio *mono;
     LinkedList *next;
 };
 
-Polinomio *makeCons(int cons);
-Polinomio *makePoly(float coe, char *var, int exp);
-LinkedList *makeList(Polinomio *pol, LinkedList *next);
+Monomio *makeCons(int cons);
+Monomio *makeMono(float coe, char *var, int exp);
+LinkedList *makeList(Monomio *mono, LinkedList *next);
 
 #endif
