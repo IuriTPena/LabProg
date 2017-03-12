@@ -1,62 +1,53 @@
-#define __poli_h__
 #include <stdlib.h>
-#include <stdio.h>
 #include <string.h>
-#include "poli.h"
+#include "operations.h"
 
-Polinomio *Norm(LinkedList *l); //Normalização de polinómios
-Polinomio *Deriv(LinkedList *l); //Derivaçao de polinomios
-Polinomio *Integra(LinkedList *l); //Integraçao de polinomios
-
-Polinomio *Norm(LinkedList *l){
-
-	LinkedList *aux = NULL;
+LinkedList *normalizar(LinkedList *l){
 
 	LinkedList *p = l;
+	LinkedList *aux = NULL;
 
-	for(; l!=NULL ; l=l-> next){
+	for(; l!=NULL ; l=l->next){
 		for(p=l->next ; p!=NULL ; p=p->next){
-			if(l->pols.pol.var == p->pols.pol.var && l->pols.pol.exp == p->pols.pol.exp && p->pols.pol.visited == false){
-				aux->pols.pol.exp = l->pols.pol.exp;
-				aux->pols.pol.var = l->pols.pol.var;
-				aux->pols.pol.coef = l->pols.pol.coef + p->pols.pol.coef;
-				p->pols.pol.visited = true;
+			if(l->mon->monos.mono.var == p->mon->monos.mono.var && l->mon->monos.mono.exp == p->mon->monos.mono.exp && p->mon->monos.mono.visited == false){
+				aux->mon->monos.mono.exp = l->mon->monos.mono.exp;
+				memcpy(aux->mon->monos.mono.var, l->mon->monos.mono.var,VARSIZE);
+				aux->mon->monos.mono.coe = l->mon->monos.mono.coe + p->mon->monos.mono.coe;
+				p->mon->monos.mono.visited = true;
 			}
 		}
 	}
 	return aux;
 }
 
-
-Polinomio *Deriv(LinkedList *l){
+LinkedList *derivar(LinkedList *l){
 	LinkedList *aux = NULL;
 
 	for(; l!= NULL; l=l->next){
-		if(l->kind = CONS)
-			aux->pols.pol.coef = 0;
-
+		if(l->mon->kind == CONS) {
+			aux->mon->monos.mono.coe = 0;
+		}
 		else{
-			aux->pols.pol.coef = l->pols.pol.coef * l->pols.pol.exp;
-			aux->pols.pol.exp = l->pols.pol.exp - 1;
+			aux->mon->monos.mono.coe = l->mon->monos.mono.coe * l->mon->monos.mono.exp;
+			aux->mon->monos.mono.exp = l->mon->monos.mono.exp - 1;
 		}
 	}
 	return aux;
 }
 
-Polinomio *Integra(LinkedList *l){
+LinkedList *integrar(LinkedList *l){
 	LinkedList *aux = NULL;
 
-	for(;l!=NULL;l=l->next){
-		if(l->kind = CONS){
-			aux->pols.pol.coef = l->pols.cons;
-			aux->pols.pol.var = 'x';
-			aux->pols.pol.exp = 1;
+	for(; l!=NULL; l=l->next){
+		if(l->mon->kind == CONS){
+			aux->mon->monos.mono.coe = l->mon->monos.cons;
+			memcpy(aux->mon->monos.mono.var, "x", VARSIZE);
+			aux->mon->monos.mono.exp = 1;
 		}
 		else{
-			aux->pols.pol.coef = l->pols.pol.coef / (l->pols.pol.exp +1);
-			aux->pols.pol.exp = l->pols.pol.exp;
+			aux->mon->monos.mono.coe = l->mon->monos.mono.coe / (l->mon->monos.mono.exp +1);
+			aux->mon->monos.mono.exp = l->mon->monos.mono.exp;
 		}
 	}
-
 	return aux;
 }
