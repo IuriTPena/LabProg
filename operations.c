@@ -23,6 +23,8 @@ LinkedList *normalizar(LinkedList *l){
 LinkedList *derivar(LinkedList *l){
 	LinkedList *aux = NULL;
 
+	l=normalizar(l);
+
 	for(; l!= NULL; l=l->next){
 		if(l->mon->kind == CONS) {
 			aux->mon->monos.mono.coe = 0;
@@ -38,6 +40,8 @@ LinkedList *derivar(LinkedList *l){
 LinkedList *integrar(LinkedList *l){
 	LinkedList *aux = NULL;
 
+	l=normalizar(l);
+
 	for(; l!=NULL; l=l->next){
 		if(l->mon->kind == CONS){
 			aux->mon->monos.mono.coe = l->mon->monos.cons;
@@ -50,4 +54,43 @@ LinkedList *integrar(LinkedList *l){
 		}
 	}
 	return aux;
+}
+
+LinkedList *somar(LinkedList *n1, LinkedList *n2){
+
+	int len1=0,len2=0;
+
+	n1=normalizar(n1);
+	n1=normalizar(n2);
+
+	for(;n1!=NULL;n1=n1->next){
+		len1++;
+	}
+
+	for(;n2!=NULL;n2=n2->next){
+		len2++;
+	}
+
+	if(len1>=len2){
+		for(;n1!=NULL;n1=n1->next){
+			for(;n2!=NULL;n2=n2->next){
+
+				if(n1->mon->monos.mono.var == n2->mon->monos.mono.var && n1->mon->monos.mono.exp == n2->mon->monos.mono.exp){
+					n1->mon->monos.mono.coe = n1->mon->monos.mono.coe + n2->mon->monos.mono.coe;
+				}
+			}
+		}
+		return n1;
+	}
+
+	else if(len1<len2){
+		for(;n2!=NULL;n2=n2->next){
+			for(;n1!=NULL;n1=n1->next){
+				if(n1->mon->monos.mono.var == n2->mon->monos.mono.var && n1->mon->monos.mono.exp == n2->mon->monos.mono.exp){
+					n2->mon->monos.mono.coe = n1->mon->monos.mono.coe + n2->mon->monos.mono.coe;
+				}	
+			}
+		}
+		return n2;
+	}
 }
