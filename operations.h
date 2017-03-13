@@ -4,7 +4,7 @@
 #include "poli.h"
 
 LinkedList *normalizar(LinkedList *l);
-LinkedList *somar(LinkedList *l);
+LinkedList *somar(LinkedList *n1, LinkedList *n2);
 LinkedList *derivar(LinkedList *l);
 LinkedList *integrar(LinkedList *l);
 
