@@ -25,3 +25,48 @@ LinkedList *makeList(Monomio *mon, LinkedList *next) {
     node->next = next;
     return node;
 }
+
+void setVisited(LinkedList *l) {
+    l->mon->monos.mono.visited = true;
+}
+
+void setVar(LinkedList *l, char c) {
+    memcpy(l->mon->monos.mono.var, c, VARSIZE);
+}
+
+void setCoe(LinkedList *l, int coe) {
+    l->mon->monos.mono.coe = coe;
+}
+
+void setExp(LinkedList *l, int exp) {
+    l->mon->monos.mono.exp = exp;
+}
+
+void setCons(LinkedList *l, int cons) {
+    l->mon->monos.cons = cons;
+}
+
+char getKind(LinkedList *l) {
+    return l->mon->kind;
+}
+
+bool isVisited(LinkedList *l) {
+    if(l->mon->monos.mono.visited) return true;
+    else return false;
+}
+
+char getVar(LinkedList *l) {
+    return l->mon->monos.mono.var;
+}
+
+int getCoe(LinkedList *l) {
+    return l->mon->monos.mono.coe;
+}
+
+int getExp(LinkedList *l) {
+    return l->mon->monos.mono.exp;
+}
+
+int getCons(LinkedList *l) {
+    return l->mon->monos.cons;
+}
