@@ -9,11 +9,13 @@ LinkedList *normalizar(LinkedList *l){
 
 	for(; l!=NULL ; l=l->next){
 		for(p=l->next ; p!=NULL ; p=p->next){
-			if(l->mon->monos.mono.var == p->mon->monos.mono.var && l->mon->monos.mono.exp == p->mon->monos.mono.exp && p->mon->monos.mono.visited == false){
-				aux->mon->monos.mono.exp = l->mon->monos.mono.exp;
-				memcpy(aux->mon->monos.mono.var, l->mon->monos.mono.var,VARSIZE);
-				aux->mon->monos.mono.coe = l->mon->monos.mono.coe + p->mon->monos.mono.coe;
-				p->mon->monos.mono.visited = true;
+			if(getVar(l) == getVar(p) 
+			&& getExp(l) == getExp(p) 
+			&& !isVisited(p)){
+				setExp(aux, getExp(l));
+				setVar(aux, getVar(l));
+				setCoe(aux, getCoe(l));
+				setVisited(p);
 			}
 		}
 	}
@@ -26,12 +28,12 @@ LinkedList *derivar(LinkedList *l){
 	l=normalizar(l);
 
 	for(; l!= NULL; l=l->next){
-		if(l->mon->kind == CONS) {
-			aux->mon->monos.mono.coe = 0;
+		if(getKind(l) == CONS) {
+			setCoe(aux, 0);
 		}
 		else{
-			aux->mon->monos.mono.coe = l->mon->monos.mono.coe * l->mon->monos.mono.exp;
-			aux->mon->monos.mono.exp = l->mon->monos.mono.exp - 1;
+			setCoe(aux, getCoe(l)*getExp(l));
+			setExp(aux, getExp(l)-1);
 		}
 	}
 	return aux;
@@ -43,14 +45,14 @@ LinkedList *integrar(LinkedList *l){
 	l=normalizar(l);
 
 	for(; l!=NULL; l=l->next){
-		if(l->mon->kind == CONS){
-			aux->mon->monos.mono.coe = l->mon->monos.cons;
-			memcpy(aux->mon->monos.mono.var, "x", VARSIZE);
-			aux->mon->monos.mono.exp = 1;
+		if(getKind(l) == CONS){
+			setCoe(aux, getCoe(l));
+			setVar(aux, "x");
+			setExp(aux, 1);
 		}
 		else{
-			aux->mon->monos.mono.coe = l->mon->monos.mono.coe / (l->mon->monos.mono.exp +1);
-			aux->mon->monos.mono.exp = l->mon->monos.mono.exp;
+			setCoe(aux, getCoe(l)/(getExp(l)+1));
+			setExp(aux, getExp(l));
 		}
 	}
 	return aux;
@@ -75,22 +77,23 @@ LinkedList *somar(LinkedList *n1, LinkedList *n2){
 		for(;n1!=NULL;n1=n1->next){
 			for(;n2!=NULL;n2=n2->next){
 
-				if(n1->mon->monos.mono.var == n2->mon->monos.mono.var && n1->mon->monos.mono.exp == n2->mon->monos.mono.exp){
-					n1->mon->monos.mono.coe = n1->mon->monos.mono.coe + n2->mon->monos.mono.coe;
+				if(getVar(n1) == getVar(n2) && getExp(n1) == getExp(n2)){
+					setCoe(n1, getCoe(n1) + getCoe(n2));
 				}
 			}
 		}
 		return n1;
 	}
 
-	else if(len1<len2){
+	else {
 		for(;n2!=NULL;n2=n2->next){
 			for(;n1!=NULL;n1=n1->next){
-				if(n1->mon->monos.mono.var == n2->mon->monos.mono.var && n1->mon->monos.mono.exp == n2->mon->monos.mono.exp){
-					n2->mon->monos.mono.coe = n1->mon->monos.mono.coe + n2->mon->monos.mono.coe;
+				if(getVar(n1) == getVar(n2) && getExp(n1) == getExp(n2)){
+					setCoe(n2, getCoe(n1)+getCoe(n2));
 				}	
 			}
 		}
 		return n2;
 	}
+
 }
