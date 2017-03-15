@@ -48,7 +48,8 @@ int printPolinomio(LinkedList *l) {
     return 0;
 }
 
-LinkedList *scanMonomio(LinkedList *l) {
+LinkedList *scanMonomio() {
+	LinkedList *l = NULL;
     int more = 0;
     do {
         float coe = 0.0;
@@ -61,8 +62,8 @@ LinkedList *scanMonomio(LinkedList *l) {
         printf("Expoente: ");
         scanf("%d", &exp);
         
-        l = makeList(makeMono(coe, var, exp), NULL);
-        l = l->next;
+        l = makeList(makeMono(coe, var, exp), l);
+        //l = l->next;
 
         printf("Há mais?\n0. Não\n1. Sim\n");
         scanf("%d", &more);
@@ -70,15 +71,16 @@ LinkedList *scanMonomio(LinkedList *l) {
     return l;
 }
 
-LinkedList *scanConstante(LinkedList *l) {
+LinkedList *scanConstante() {
+    LinkedList *l = NULL;
     int more = 0;
     do {
         int i = 0;
         printf("Constante: ");
         scanf("%d", &i);
 
-        l = makeList(makeCons(i), NULL);
-        l = l->next;
+        l = makeList(makeCons(i), l);
+        //l = l->next;
 
         printf("Há mais?\n0. Não\n1. Sim\n");
         scanf("%d", &more);        
