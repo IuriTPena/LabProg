@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "operations.h"
 
 int printPolinomio(LinkedList *l);
@@ -28,11 +29,11 @@ int main (int argc, char **argv) {
 
 int printPolinomio(LinkedList *l) {
     while(l) {
-        if(l->mon->kind == MONO) {
-            printf("works");
+        if(getKind(l) == MONO) {
+            printf("%d%s^%d ", getCoe(l), getVar(l), getExp(l));
         }
         else {
-            printf("%d", l->mon->monos.cons); 
+            printf("%d ", getCons(l)); 
         }
         l=l->next;
     }
@@ -65,7 +66,7 @@ LinkedList *scanMonomio() {
     LinkedList *l = NULL;
 
     float coe = 0.0;
-    char var[VARSIZE];
+    char *var = malloc(sizeof(char));
     int exp = 0;
     printf("Coeficiente: ");
     scanf("%f", &coe);
