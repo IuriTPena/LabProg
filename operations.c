@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "operations.h"
@@ -19,6 +20,9 @@ LinkedList *normalizar(LinkedList *l){
 			}
 		}
 	}
+	if(aux) printf("works");
+	else printf("shit");
+	printPolinomio(aux);
 	return aux;
 }
 
@@ -36,6 +40,7 @@ LinkedList *derivar(LinkedList *l){
 			setExp(aux, getExp(l)-1);
 		}
 	}
+	printPolinomio(aux);
 	return aux;
 }
 
@@ -55,6 +60,7 @@ LinkedList *integrar(LinkedList *l){
 			setExp(aux, getExp(l));
 		}
 	}
+	printPolinomio(aux);
 	return aux;
 }
 
@@ -82,6 +88,7 @@ LinkedList *somar(LinkedList *n1, LinkedList *n2){
 				}
 			}
 		}
+		printPolinomio(n1);
 		return n1;
 	}
 
@@ -93,7 +100,28 @@ LinkedList *somar(LinkedList *n1, LinkedList *n2){
 				}	
 			}
 		}
+		printPolinomio(n2);
 		return n2;
 	}
 
+}
+
+int printPolinomio(LinkedList *l) {
+    while(l) {
+        if(getKind(l) == MONO) {
+            if(!l->next)
+                printf("%d%s^%d\n", getCoe(l), getVar(l), getExp(l));
+            else
+                printf("%d%s^%d + ", getCoe(l), getVar(l), getExp(l));
+        }
+        else {
+            if(!l->next)
+                printf("%d\n", getCons(l)); 
+            else
+                printf("%d + ", getCons(l));
+        }
+        l=l->next;
+    }
+
+    return 0;
 }

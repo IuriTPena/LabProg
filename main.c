@@ -2,46 +2,31 @@
 #include <stdlib.h>
 #include "operations.h"
 
-int printPolinomio(LinkedList *l);
 LinkedList *scanPolinomio();
 Monomio *scanConstante();
 Monomio *scanMonomio();
 
 int main (int argc, char **argv) {
 
+    int nPol = 1;
     LinkedList *p = NULL;
     p = scanPolinomio();
 
     int oper;
-    printf("Escolha as operações\n0. Imprimir\n1. Normalizar\n2. Somar\n3. Derivar\n4. Integrar\n");
+ /*   if(nPol > 1)
+        printf("Escolha as operações\n0. Imprimir\n1. Somar\n");
+    else
+*/        printf("Escolha as operações\n0. Imprimir\n1. Normalizar\n2. Derivar\n3. Integrar\n");
+
     scanf("%d", &oper);
+ 
     switch (oper) {
         case 0: printPolinomio(p); break;
-      /*  case 1: normalizar(head); break;
-        case 2: somar(head); break;
-        case 3: derivar(head); break;
-        case 4: integrar(head); break;*/
+        case 1: normalizar(p); break;
+      //  case 2: somar(something); break;
+        case 3: derivar(p); break;
+        case 4: integrar(p); break;
         default: printf("A sério? Entre 0 e 4, inclusivé. Não é rocket science!");
-    }
-
-    return 0;
-}
-
-int printPolinomio(LinkedList *l) {
-    while(l) {
-        if(getKind(l) == MONO) {
-            if(!l->next)
-                printf("%d%s^%d\n", getCoe(l), getVar(l), getExp(l));
-            else
-                printf("%d%s^%d + ", getCoe(l), getVar(l), getExp(l));
-        }
-        else {
-            if(!l->next)
-                printf("%d\n", getCons(l)); 
-            else
-                printf("%d + ", getCons(l));
-        }
-        l=l->next;
     }
 
     return 0;

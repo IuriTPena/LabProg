@@ -3,6 +3,7 @@
 
 #include "poli.h"
 
+int printPolinomio(LinkedList *l);
 LinkedList *normalizar(LinkedList *l);
 LinkedList *somar(LinkedList *n1, LinkedList *n2);
 LinkedList *derivar(LinkedList *l);
