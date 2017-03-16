@@ -3,8 +3,6 @@
 
 #include <stdbool.h>
 
-#define VARSIZE 10
-
 typedef struct _Monomio Monomio;
 typedef struct _LinkedList LinkedList;
 
@@ -14,7 +12,7 @@ struct _Monomio {
         int cons;
         struct {
             float coe;
-            char var[VARSIZE];
+            char *var;
             int exp;
             bool visited;
         } mono;
@@ -32,13 +30,13 @@ LinkedList *makeList(Monomio *mono, LinkedList *next);
 
 
 void setVisited(LinkedList *l);
-void setVar(LinkedList *l, char c);
+void setVar(LinkedList *l, char *c);
 void setCoe(LinkedList *l, int a);
 void setExp(LinkedList *l, int a);
 void setCons(LinkedList *l, int a);
 char getKind(LinkedList *l);
 bool isVisited(LinkedList *l);
-char getVar(LinkedList *l);
+char *getVar(LinkedList *l);
 int getCoe(LinkedList *l);
 int getExp(LinkedList *l);
 int getCons(LinkedList *l);

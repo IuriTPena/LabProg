@@ -1,5 +1,4 @@
 #include <stdlib.h>
-#include <string.h>
 #include "poli.h"
 
 Monomio *makeCons(int cons) {
@@ -13,7 +12,7 @@ Monomio *makeMono(float coe, char *var, int exp) {
     Monomio *node = (Monomio*) malloc(sizeof(Monomio));
     node->kind = MONO;
     node->monos.mono.coe = coe;
-    memcpy(node->monos.mono.var, var, VARSIZE);
+    node->monos.mono.var = var;   
     node->monos.mono.exp = exp;
     node->monos.mono.visited = false;
     return node;
@@ -30,8 +29,8 @@ void setVisited(LinkedList *l) {
     l->mon->monos.mono.visited = true;
 }
 
-void setVar(LinkedList *l, char c) {
-    memcpy(l->mon->monos.mono.var, c, VARSIZE);
+void setVar(LinkedList *l, char *var) {
+    l->mon->monos.mono.var = var;
 }
 
 void setCoe(LinkedList *l, int coe) {
@@ -55,7 +54,7 @@ bool isVisited(LinkedList *l) {
     else return false;
 }
 
-char getVar(LinkedList *l) {
+char *getVar(LinkedList *l) {
     return l->mon->monos.mono.var;
 }
 
