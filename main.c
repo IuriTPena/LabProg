@@ -4,8 +4,8 @@
 
 int printPolinomio(LinkedList *l);
 LinkedList *scanPolinomio();
-LinkedList *scanConstante();
-LinkedList *scanMonomio();
+Monomio *scanConstante();
+Monomio *scanMonomio();
 
 int main (int argc, char **argv) {
 
@@ -30,10 +30,16 @@ int main (int argc, char **argv) {
 int printPolinomio(LinkedList *l) {
     while(l) {
         if(getKind(l) == MONO) {
-            printf("%d%s^%d ", getCoe(l), getVar(l), getExp(l));
+            if(!l->next)
+                printf("%d%s^%d\n", getCoe(l), getVar(l), getExp(l));
+            else
+                printf("%d%s^%d + ", getCoe(l), getVar(l), getExp(l));
         }
         else {
-            printf("%d ", getCons(l)); 
+            if(!l->next)
+                printf("%d\n", getCons(l)); 
+            else
+                printf("%d + ", getCons(l));
         }
         l=l->next;
     }
@@ -49,7 +55,7 @@ LinkedList *scanPolinomio() {
     scanf("%d", &nMono);
 
     while(nMono-- > 0)
-        l = scanMonomio();
+        l = makeList(scanMonomio(), l);
 
 
     int nCons = 0;
@@ -57,13 +63,13 @@ LinkedList *scanPolinomio() {
     scanf("%d", &nCons);
 
     while(nCons-- > 0)
-        l = scanConstante();
+        l = makeList(scanConstante(), l);
 
     return l;
 }
 
-LinkedList *scanMonomio() {
-    LinkedList *l = NULL;
+Monomio *scanMonomio() {
+    Monomio *l = NULL;
 
     float coe = 0.0;
     char *var = malloc(sizeof(char));
@@ -75,19 +81,19 @@ LinkedList *scanMonomio() {
     printf("Expoente: ");
     scanf("%d", &exp);
         
-    l = makeList(makeMono(coe, var, exp), l);
+    l = makeMono(coe, var, exp);
 
     return l;
 }
 
-LinkedList *scanConstante() {
-    LinkedList *l = NULL;
+Monomio *scanConstante() {
+    Monomio *l = NULL;
 
     int i = 0;
     printf("Constante: ");
     scanf("%d", &i);
 
-    l = makeList(makeCons(i), l);
+    l = makeCons(i);
 
     return l;   
 }
