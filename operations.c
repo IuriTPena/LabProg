@@ -3,36 +3,61 @@
 #include <string.h>
 #include "operations.h"
 
-LinkedList *find(LinkedList *aux, int coe, char* var, int exp){
-	if(aux==NULL){
-		aux=makeList(makeMono(coe,var,exp),aux);
-	}
-	else{
-		for(;aux!=NULL;aux=aux->next){
-			if(getVar(aux)==var && getExp(aux)==exp){
-				setCoe(aux,coe+getCoe(aux));
-				break;
+LinkedList *delete(LinkedList *head, LinkedList *del) {
+    if(!head) return NULL;
+    LinkedList *curr = head;
+    if(curr == del) {
+        return curr->next;
+    }
+    else {
+        LinkedList *prev = head;
+        LinkedList *curr = head->next;
+        while(curr && prev) {
+            if(curr == del) {
+                LinkedList *temp = curr;
+				prev->next = curr->next;
+				free(temp);
+				return head;
 			}
-		}
-	}
-	//aux=aux->next;
-	return aux;
+            prev = curr;
+            curr = curr->next;
+        }
+    }
+    return head;
 }
-
 
 LinkedList *normalizar(LinkedList *l){
 
+	if(!l->next)
+		return l;
 
-	LinkedList * aux = NULL;
+	LinkedList *curr = l;
+	LinkedList *norm = NULL;
 
-	for(; l!=NULL ; l=l->next){
-		aux=find(aux,getCoe(l),getVar(l),getExp(l));
-		//aux=aux->next;
+	while(curr) {
+		LinkedList *copy = curr->next;
+		while (copy) {
+			if(getKind(curr) == getKind(copy)) {
+				if(getKind(curr) == MONO) {
+					if(!strcmp(getVar(curr),getVar(copy)) && getExp(curr) == getExp(copy)) {
+						int sum = getCoe(curr) + getCoe(copy);
+						setCoe(curr,sum);
+						curr = delete(curr, copy);				
+					}
+				}
+				else {
+					int sum = getCons(curr) + getCons(copy);
+					setCons(curr,sum);
+					curr = delete(curr, copy);
+				}
+			}
+			copy = copy->next;
+		}
+		norm = makeList(curr->mon, norm);
+		curr = curr->next;
 	}
-
-	printPolinomio(aux);
-
-return aux;	 
+	printPolinomio(norm);
+	return norm;	 
 }
 
 LinkedList *derivar(LinkedList *l){
