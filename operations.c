@@ -3,27 +3,63 @@
 #include <string.h>
 #include "operations.h"
 
+LinkedList *find(LinkedList *aux, int coe, char* var, int exp){
+	if(aux==NULL){
+		setCoe(aux,coe);
+		setExp(aux,exp);
+		setVar(aux,var);
+	}
+	else{
+		for(;aux!=NULL;aux=aux->next){
+			if(getVar(aux)==var && getExp(aux)==exp){
+				setCoe(aux,coe+getCoe(aux));
+				break;
+			}
+		}
+	}
+	//aux=aux->next;
+	return aux;
+}
+
+
 LinkedList *normalizar(LinkedList *l){
 
-	LinkedList *p = l;
-	LinkedList *aux = NULL;
+
+	LinkedList * aux = NULL;
 
 	for(; l!=NULL ; l=l->next){
+		aux=find(aux,getCoe(l),getVar(l),getExp(l));
+		//aux=aux->next;
+	}
+
+
+	/*LinkedList *p = l;
+	LinkedList *aux = NULL;
+	//printPolinomio(aux);
+
+	for(; l!=NULL ; l=l->next){
+		printPolinomio(p);
 		for(p=l->next ; p!=NULL ; p=p->next){
+
+			printf("aqui\n");
 			if(getVar(l) == getVar(p) 
 			&& getExp(l) == getExp(p) 
 			&& !isVisited(p)){
+				printf("Entrou aqui");
 				setExp(aux, getExp(l));
 				setVar(aux, getVar(l));
 				setCoe(aux, getCoe(l));
 				setVisited(p);
+				printf("Entrou aqui");
 			}
 		}
 	}
+	printPolinomio(l);
 	if(aux) printf("works");
-	else printf("shit");
+	else printf("oh darn!!\n");
 	printPolinomio(aux);
-	return aux;
+	return aux;*/
+return aux;	 
 }
 
 LinkedList *derivar(LinkedList *l){
@@ -107,21 +143,21 @@ LinkedList *somar(LinkedList *n1, LinkedList *n2){
 }
 
 int printPolinomio(LinkedList *l) {
-    while(l) {
-        if(getKind(l) == MONO) {
-            if(!l->next)
-                printf("%d%s^%d\n", getCoe(l), getVar(l), getExp(l));
-            else
-                printf("%d%s^%d + ", getCoe(l), getVar(l), getExp(l));
-        }
-        else {
-            if(!l->next)
-                printf("%d\n", getCons(l)); 
-            else
-                printf("%d + ", getCons(l));
-        }
-        l=l->next;
-    }
+	while(l) {
+		if(getKind(l) == MONO) {
+			if(!l->next)
+				printf("%d%s^%d\n", getCoe(l), getVar(l), getExp(l));
+			else
+				printf("%d%s^%d + ", getCoe(l), getVar(l), getExp(l));
+		}
+		else {
+			if(!l->next)
+				printf("%d\n", getCons(l)); 
+			else
+				printf("%d + ", getCons(l));
+		}
+		l=l->next;
+	}
 
-    return 0;
+	return 0;
 }
