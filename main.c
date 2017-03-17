@@ -8,7 +8,7 @@ Monomio *scanMonomio();
 
 int main (int argc, char **argv) {
 
-    int nPol = 1;
+    //int nPol = 1;
     LinkedList *p = NULL;
     p = scanPolinomio();
 
