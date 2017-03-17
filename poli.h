@@ -31,9 +31,9 @@ LinkedList *makeList(Monomio *mono, LinkedList *next);
 
 void setVisited(LinkedList *l);
 void setVar(LinkedList *l, char *c);
-void setCoe(LinkedList *l, int a);
-void setExp(LinkedList *l, int a);
-void setCons(LinkedList *l, int a);
+void setCoe(LinkedList *l, int coe);
+void setExp(LinkedList *l, int exp);
+void setCons(LinkedList *l, int cons);
 char getKind(LinkedList *l);
 bool isVisited(LinkedList *l);
 char *getVar(LinkedList *l);
