@@ -5,9 +5,7 @@
 
 LinkedList *find(LinkedList *aux, int coe, char* var, int exp){
 	if(aux==NULL){
-		setCoe(aux,coe);
-		setExp(aux,exp);
-		setVar(aux,var);
+		aux=makeList(makeMono(coe,var,exp),aux);
 	}
 	else{
 		for(;aux!=NULL;aux=aux->next){
@@ -32,33 +30,8 @@ LinkedList *normalizar(LinkedList *l){
 		//aux=aux->next;
 	}
 
-
-	/*LinkedList *p = l;
-	LinkedList *aux = NULL;
-	//printPolinomio(aux);
-
-	for(; l!=NULL ; l=l->next){
-		printPolinomio(p);
-		for(p=l->next ; p!=NULL ; p=p->next){
-
-			printf("aqui\n");
-			if(getVar(l) == getVar(p) 
-			&& getExp(l) == getExp(p) 
-			&& !isVisited(p)){
-				printf("Entrou aqui");
-				setExp(aux, getExp(l));
-				setVar(aux, getVar(l));
-				setCoe(aux, getCoe(l));
-				setVisited(p);
-				printf("Entrou aqui");
-			}
-		}
-	}
-	printPolinomio(l);
-	if(aux) printf("works");
-	else printf("oh darn!!\n");
 	printPolinomio(aux);
-	return aux;*/
+
 return aux;	 
 }
 
