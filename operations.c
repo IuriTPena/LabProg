@@ -56,7 +56,6 @@ LinkedList *normalizar(LinkedList *l){
 		new = makeList(curr->mon, new);
 		curr = curr->next;
 	}
-	printPolinomio(new);
 	return new;	 
 }
 
@@ -80,8 +79,6 @@ LinkedList *derivar(LinkedList *l){
 		}
 		l = l->next;
 	}
-
-	printPolinomio(new);
 	return new;
 }
 
@@ -99,7 +96,6 @@ LinkedList *integrar(LinkedList *l){
 		}
 		l = l->next;
 	}
-	printPolinomio(new);
 	return new;
 }
 
