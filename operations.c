@@ -32,7 +32,7 @@ LinkedList *normalizar(LinkedList *l){
 		return l;
 
 	LinkedList *curr = l;
-	LinkedList *norm = NULL;
+	LinkedList *new = NULL;
 
 	while(curr) {
 		LinkedList *copy = curr->next;
@@ -53,56 +53,54 @@ LinkedList *normalizar(LinkedList *l){
 			}
 			copy = copy->next;
 		}
-		norm = makeList(curr->mon, norm);
+		new = makeList(curr->mon, new);
 		curr = curr->next;
 	}
-	printPolinomio(norm);
-	return norm;	 
+	printPolinomio(new);
+	return new;	 
 }
 
 LinkedList *derivar(LinkedList *l){
 	
 	l=normalizar(l);
-	LinkedList *der = NULL;
+	LinkedList *new = NULL;
 
 	while(l) {
 		if(getKind(l) == MONO) {
 			if(getExp(l) == 1) {
-				der = makeList(makeCons(getCoe(der)), der);
+				new = makeList(makeCons(getCoe(new)), new);
 			}
 			else {
 				float mul = getCoe(l) * getExp(l);
-				der = makeList(makeMono(mul, getVar(l), getExp(l)-1), der);
+				new = makeList(makeMono(mul, getVar(l), getExp(l)-1), new);
 			}
 		}
 		else {
-			der = makeList(makeCons(0), der);
+			new = makeList(makeCons(0), new);
 		}
 		l = l->next;
 	}
 
-	printPolinomio(der);
-	return der;
+	printPolinomio(new);
+	return new;
 }
 
 LinkedList *integrar(LinkedList *l){
-	LinkedList *aux = NULL;
-
+	
 	l=normalizar(l);
+	LinkedList *new = NULL;
 
-	for(; l!=NULL; l=l->next){
-		if(getKind(l) == CONS){
-			setCoe(aux, getCoe(l));
-			setVar(aux, "x");
-			setExp(aux, 1);
+	while(l){
+		if(getKind(l) == MONO){
+			new = makeList(makeMono(getCoe(l)/(getExp(l)+1),getVar(l),getExp(l)+1),new);
 		}
 		else{
-			setCoe(aux, getCoe(l)/(getExp(l)+1));
-			setExp(aux, getExp(l));
+			new = makeList(makeMono(getCons(l), "x", 1), new);
 		}
+		l = l->next;
 	}
-	printPolinomio(aux);
-	return aux;
+	printPolinomio(new);
+	return new;
 }
 
 LinkedList *somar(LinkedList *n1, LinkedList *n2){
@@ -151,9 +149,9 @@ int printPolinomio(LinkedList *l) {
 	while(l) {
 		if(getKind(l) == MONO) {
 			if(!l->next)
-				printf("%d%s^%d\n", getCoe(l), getVar(l), getExp(l));
+				printf("%f%s^%d\n", getCoe(l), getVar(l), getExp(l));
 			else
-				printf("%d%s^%d + ", getCoe(l), getVar(l), getExp(l));
+				printf("%f%s^%d + ", getCoe(l), getVar(l), getExp(l));
 		}
 		else {
 			if(!l->next)
