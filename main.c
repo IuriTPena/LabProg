@@ -8,25 +8,28 @@ Monomio *scanMonomio();
 
 int main (int argc, char **argv) {
 
-    //int nPol = 1;
-    LinkedList *p = NULL;
-    p = scanPolinomio();
-
+    
+    printf("Escolha as operações\n0. Imprimir\n1. Somar\n2. Normalizar\n3. Derivar\n4. Integrar\n");
     int oper;
- /*   if(nPol > 1)
-        printf("Escolha as operações\n0. Imprimir\n1. Somar\n");
-    else
-*/        printf("Escolha as operações\n0. Imprimir\n1. Normalizar\n2. Derivar\n3. Integrar\n");
-
     scanf("%d", &oper);
- 
-    switch (oper) {
-        case 0: printPolinomio(p); break;
-        case 1: normalizar(p); break;
-      //  case 2: somar(something); break;
-        case 3: derivar(p); break;
-        case 4: integrar(p); break;
-        default: printf("A sério? Entre 0 e 4, inclusivé. Não é rocket science!");
+
+    if(oper == 1) {
+        printf("Inserir polinómio 1\n");
+        LinkedList *p1 = scanPolinomio();
+        printf("Inserir polinómio 2\n");
+        LinkedList *p2 = scanPolinomio();
+        
+        somar(p1, p2);
+    }
+    else{
+        LinkedList *p = scanPolinomio();
+        switch (oper) {
+            case 0: printPolinomio(p); break;
+            case 2: printPolinomio(normalizar(p)); break;
+            case 3: printPolinomio(derivar(p)); break;
+            case 4: printPolinomio(integrar(p)); break;
+            default: printf("A sério? Entre 0 e 4, inclusivé. Não é rocket science!");
+        }
     }
 
     return 0;
