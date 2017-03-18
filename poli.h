@@ -31,13 +31,13 @@ LinkedList *makeList(Monomio *mon, LinkedList *next);
 
 void setVisited(LinkedList *l);
 void setVar(LinkedList *l, char *c);
-void setCoe(LinkedList *l, int coe);
+void setCoe(LinkedList *l, float coe);
 void setExp(LinkedList *l, int exp);
 void setCons(LinkedList *l, int cons);
 char getKind(LinkedList *l);
 bool isVisited(LinkedList *l);
 char *getVar(LinkedList *l);
-int getCoe(LinkedList *l);
+float getCoe(LinkedList *l);
 int getExp(LinkedList *l);
 int getCons(LinkedList *l);
 

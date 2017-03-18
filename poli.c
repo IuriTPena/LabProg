@@ -33,7 +33,7 @@ void setVar(LinkedList *l, char *var) {
     l->mon->monos.mono.var = var;
 }
 
-void setCoe(LinkedList *l, int coe) {
+void setCoe(LinkedList *l, float coe) {
     l->mon->monos.mono.coe = coe;
 }
 
@@ -58,7 +58,7 @@ char *getVar(LinkedList *l) {
     return l->mon->monos.mono.var;
 }
 
-int getCoe(LinkedList *l) {
+float getCoe(LinkedList *l) {
     return l->mon->monos.mono.coe;
 }
 
