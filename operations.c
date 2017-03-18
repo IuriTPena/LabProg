@@ -61,21 +61,28 @@ LinkedList *normalizar(LinkedList *l){
 }
 
 LinkedList *derivar(LinkedList *l){
-	LinkedList *aux = NULL;
-
+	
 	l=normalizar(l);
+	LinkedList *der = NULL;
 
-	for(; l!= NULL; l=l->next){
-		if(getKind(l) == CONS) {
-			setCoe(aux, 0);
+	while(l) {
+		if(getKind(l) == MONO) {
+			if(getExp(l) == 1) {
+				der = makeList(makeCons(getCoe(der)), der);
+			}
+			else {
+				float mul = getCoe(l) * getExp(l);
+				der = makeList(makeMono(mul, getVar(l), getExp(l)-1), der);
+			}
 		}
-		else{
-			setCoe(aux, getCoe(l)*getExp(l));
-			setExp(aux, getExp(l)-1);
+		else {
+			der = makeList(makeCons(0), der);
 		}
+		l = l->next;
 	}
-	printPolinomio(aux);
-	return aux;
+
+	printPolinomio(der);
+	return der;
 }
 
 LinkedList *integrar(LinkedList *l){
