@@ -26,7 +26,7 @@ struct _LinkedList {
 
 Monomio *makeCons(int cons);
 Monomio *makeMono(float coe, char *var, int exp);
-LinkedList *makeList(Monomio *mono, LinkedList *next);
+LinkedList *makeList(Monomio *mon, LinkedList *next);
 
 
 void setVisited(LinkedList *l);
