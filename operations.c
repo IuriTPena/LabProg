@@ -3,30 +3,7 @@
 #include <string.h>
 #include "operations.h"
 
-LinkedList *delete(LinkedList *head, LinkedList *del) {
-    if(!head) return NULL;
-    LinkedList *curr = head;
-    if(curr == del) {
-        return curr->next;
-    }
-    else {
-        LinkedList *prev = head;
-        LinkedList *curr = head->next;
-        while(curr && prev) {
-            if(curr == del) {
-                LinkedList *temp = curr;
-				prev->next = curr->next;
-				free(temp);
-				return head;
-			}
-            prev = curr;
-            curr = curr->next;
-        }
-    }
-    return head;
-}
-
-LinkedList *normalizar(LinkedList *l){
+LinkedList *normalizar(LinkedList *l) {
 
 	if(!l->next)
 		return l;
@@ -59,7 +36,7 @@ LinkedList *normalizar(LinkedList *l){
 	return new;	 
 }
 
-LinkedList *derivar(LinkedList *l){
+LinkedList *derivar(LinkedList *l) {
 	
 	l=normalizar(l);
 	LinkedList *new = NULL;
@@ -82,7 +59,7 @@ LinkedList *derivar(LinkedList *l){
 	return new;
 }
 
-LinkedList *integrar(LinkedList *l){
+LinkedList *integrar(LinkedList *l) {
 	
 	l=normalizar(l);
 	LinkedList *new = NULL;
@@ -99,46 +76,45 @@ LinkedList *integrar(LinkedList *l){
 	return new;
 }
 
-LinkedList *somar(LinkedList *n1, LinkedList *n2){
+LinkedList *somar(LinkedList *l1, LinkedList *l2) {
+	LinkedList *new = append(l1, l2);
+	new = normalizar(new);
+	return new;
+}
 
-	int len1=0,len2=0;
+LinkedList *append(LinkedList *l1, LinkedList *l2) {
+	if(!l1) return l2;
+	if(!l2) return l1;
 
-	n1=normalizar(n1);
-	n1=normalizar(n2);
+	LinkedList *l = NULL;
 
-	for(;n1!=NULL;n1=n1->next){
-		len1++;
-	}
+	for(l=l1; l1->next != NULL; l1 = l1->next)
+		;
+	l1->next = l2;
+	return l;
+}
 
-	for(;n2!=NULL;n2=n2->next){
-		len2++;
-	}
-
-	if(len1>=len2){
-		for(;n1!=NULL;n1=n1->next){
-			for(;n2!=NULL;n2=n2->next){
-
-				if(getVar(n1) == getVar(n2) && getExp(n1) == getExp(n2)){
-					setCoe(n1, getCoe(n1) + getCoe(n2));
-				}
+LinkedList *delete(LinkedList *head, LinkedList *del) {
+    if(!head) return NULL;
+    LinkedList *curr = head;
+    if(curr == del) {
+        return curr->next;
+    }
+    else {
+        LinkedList *prev = head;
+        LinkedList *curr = head->next;
+        while(curr && prev) {
+            if(curr == del) {
+                LinkedList *temp = curr;
+				prev->next = curr->next;
+				free(temp);
+				return head;
 			}
-		}
-		printPolinomio(n1);
-		return n1;
-	}
-
-	else {
-		for(;n2!=NULL;n2=n2->next){
-			for(;n1!=NULL;n1=n1->next){
-				if(getVar(n1) == getVar(n2) && getExp(n1) == getExp(n2)){
-					setCoe(n2, getCoe(n1)+getCoe(n2));
-				}	
-			}
-		}
-		printPolinomio(n2);
-		return n2;
-	}
-
+            prev = curr;
+            curr = curr->next;
+        }
+    }
+    return head;
 }
 
 int printPolinomio(LinkedList *l) {
