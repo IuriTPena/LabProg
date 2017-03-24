@@ -40,12 +40,18 @@ LinkedList *scanPolinomio() {
     printf("Nº de monómios a inserir: ");  
     scanf("%d", &nMono);
 
+    if(nMono < 0)
+        printf("Valores negativos são considerados 0\n")
+
     while(nMono-- > 0)
         l = makeList(scanMonomio(), l);
 
     int nCons = 0;
     printf("Nº de constantes a inserir: ");    
     scanf("%d", &nCons);
+
+    if(nCons < 0)
+        printf("Valores negativos são considerados 0\n")
 
     while(nCons-- > 0)
         l = makeList(scanConstante(), l);
