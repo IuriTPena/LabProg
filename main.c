@@ -7,7 +7,6 @@ Monomio *scanConstante();
 Monomio *scanMonomio();
 
 int main (int argc, char **argv) {
-
     
     printf("Escolha as operações\n0. Imprimir\n1. Somar\n2. Normalizar\n3. Derivar\n4. Integrar\n");
     int oper;
@@ -31,7 +30,6 @@ int main (int argc, char **argv) {
             default: printf("A sério? Entre 0 e 4, inclusivé. Não é rocket science!");
         }
     }
-
     return 0;
 }
 
@@ -44,7 +42,6 @@ LinkedList *scanPolinomio() {
 
     while(nMono-- > 0)
         l = makeList(scanMonomio(), l);
-
 
     int nCons = 0;
     printf("Nº de constantes a inserir: ");    
