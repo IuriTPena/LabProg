@@ -60,16 +60,25 @@ LinkedList *derivar(LinkedList *l) {
 }
 
 LinkedList *integrar(LinkedList *l) {
+
+	char *ordem = malloc(sizeof(char));;
 	
 	l=normalizar(l);
 	LinkedList *new = NULL;
 
+	printf("integrar em ordem a que?\n");
+	scanf("%s", ordem);
+
 	while(l){
+		
 		if(getKind(l) == MONO){
-			new = makeList(makeMono(getCoe(l)/(getExp(l)+1),getVar(l),getExp(l)+1),new);
+			if(strcmp(getVar(l),ordem)==0)
+				new = makeList(makeMono(getCoe(l)/(getExp(l)+1),getVar(l),getExp(l)+1),new);
+			else
+				new = makeList(makeMono(getCoe(l),getVar(l),getExp(l)),new);
 		}
 		else{
-			new = makeList(makeMono(getCons(l), "x", 1), new);
+			new = makeList(makeMono(getCons(l), ordem , 1), new);
 		}
 		l = l->next;
 	}
@@ -95,26 +104,26 @@ LinkedList *append(LinkedList *l1, LinkedList *l2) {
 }
 
 LinkedList *delete(LinkedList *head, LinkedList *del) {
-    if(!head) return NULL;
-    LinkedList *curr = head;
-    if(curr == del) {
-        return curr->next;
-    }
-    else {
-        LinkedList *prev = head;
-        LinkedList *curr = head->next;
-        while(curr && prev) {
-            if(curr == del) {
-                LinkedList *temp = curr;
+	if(!head) return NULL;
+	LinkedList *curr = head;
+	if(curr == del) {
+		return curr->next;
+	}
+	else {
+		LinkedList *prev = head;
+		LinkedList *curr = head->next;
+		while(curr && prev) {
+			if(curr == del) {
+				LinkedList *temp = curr;
 				prev->next = curr->next;
 				free(temp);
 				return head;
 			}
-            prev = curr;
-            curr = curr->next;
-        }
-    }
-    return head;
+			prev = curr;
+			curr = curr->next;
+		}
+	}
+	return head;
 }
 
 int printPolinomio(LinkedList *l) {
