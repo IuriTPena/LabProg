@@ -66,7 +66,7 @@ LinkedList *integrar(LinkedList *l) {
 	l=normalizar(l);
 	LinkedList *new = NULL;
 
-	printf("integrar em ordem a que?\n");
+	printf("Integrar em ordem a que?\n");
 	scanf("%s", ordem);
 
 	while(l){
