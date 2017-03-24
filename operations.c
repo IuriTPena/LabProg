@@ -132,16 +132,21 @@ int printPolinomio(LinkedList *l) {
 			if(!l->next)
 				printf("%f%s^%d\n", getCoe(l), getVar(l), getExp(l));
 			else
-				printf("%f%s^%d + ", getCoe(l), getVar(l), getExp(l));
+				if(getCoe(l) < 0)
+					printf("%f%s^%d ", getCoe(l), getVar(l), getExp(l));
+				else
+					printf("%f%s^%d + ", getCoe(l), getVar(l), getExp(l));
 		}
 		else {
 			if(!l->next)
 				printf("%d\n", getCons(l)); 
 			else
-				printf("%d + ", getCons(l));
+				if(getCons(l) < 0)
+					printf("%d ", getCons(l));
+				else
+					printf("%d + ", getCons(l));
 		}
 		l=l->next;
 	}
-
 	return 0;
 }
