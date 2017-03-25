@@ -59,30 +59,49 @@ LinkedList *derivar(LinkedList *l) {
 	return new;
 }
 
-LinkedList *integrar(LinkedList *l) {
-
-	char *ordem = malloc(sizeof(char));;
+int integrar(LinkedList *l) {
 	
 	l=normalizar(l);
+	LinkedList *copy = l;
 	LinkedList *new = NULL;
 
+	char *ordem = malloc(sizeof(char));
 	printf("Integrar em ordem a que?\n");
 	scanf("%s", ordem);
+	int nMon = 0;
+	int nDiff = 0;
+
+	while(copy) {
+		if(getKind(copy) == MONO) {
+			nMon++;
+			if(strcmp(getVar(copy),ordem)!=0)
+			nDiff++;
+		}
+		copy = copy->next;
+	}
+
+	bool diff = false;
+	if(nMon == nDiff)
+		diff = true;
 
 	while(l){
-		
-		if(getKind(l) == MONO){
+		if(getKind(l) == MONO)
 			if(strcmp(getVar(l),ordem)==0)
 				new = makeList(makeMono(getCoe(l)/(getExp(l)+1),getVar(l),getExp(l)+1),new);
-			else
+			else{
 				new = makeList(makeMono(getCoe(l),getVar(l),getExp(l)),new);
-		}
-		else{
+			}
+		else if(!diff)
 			new = makeList(makeMono(getCons(l), ordem , 1), new);
-		}
+		else
+			new = makeList(makeCons(getCons(l)), new);
 		l = l->next;
 	}
-	return new;
+	if(diff)
+		printIntegrar(new, ordem);
+	else
+		printPolinomio(new);
+	return 0;
 }
 
 LinkedList *somar(LinkedList *l1, LinkedList *l2) {
@@ -124,6 +143,34 @@ LinkedList *delete(LinkedList *head, LinkedList *del) {
 		}
 	}
 	return head;
+}
+
+int printIntegrar (LinkedList *l, char *var) {
+	printf("(");
+	
+	while(l) {
+		if(getKind(l) == MONO) {
+			if(!l->next)
+				printf("%f%s^%d", getCoe(l), getVar(l), getExp(l));
+			else
+				if(getCoe(l) < 0)
+					printf("%f%s^%d ", getCoe(l), getVar(l), getExp(l));
+				else
+					printf("%f%s^%d + ", getCoe(l), getVar(l), getExp(l));
+		}
+		else {
+			if(!l->next)
+				printf("%d", getCons(l)); 
+			else
+				if(getCons(l) < 0)
+					printf("%d ", getCons(l));
+				else
+					printf("%d + ", getCons(l));
+		}
+		l=l->next;
+	}
+	printf(")%s\n", var);
+	return 0;
 }
 
 int printPolinomio(LinkedList *l) {
