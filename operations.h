@@ -8,8 +8,8 @@ int printIntegrar(LinkedList *l, char *var);
 LinkedList *delete(LinkedList *head, LinkedList *del);
 LinkedList *append(LinkedList *l1, LinkedList *l2);
 LinkedList *normalizar(LinkedList *l);
-LinkedList *somar(LinkedList *n1, LinkedList *n2);
-LinkedList *derivar(LinkedList *l);
+int somar(LinkedList *n1, LinkedList *n2);
+int derivar(LinkedList *l);
 int integrar(LinkedList *l);
 
 #endif
