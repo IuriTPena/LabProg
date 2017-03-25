@@ -36,7 +36,7 @@ LinkedList *normalizar(LinkedList *l) {
 	return new;	 
 }
 
-LinkedList *derivar(LinkedList *l) {
+int derivar(LinkedList *l) {
 	
 	l=normalizar(l);
 	LinkedList *new = NULL;
@@ -56,7 +56,8 @@ LinkedList *derivar(LinkedList *l) {
 		}
 		l = l->next;
 	}
-	return new;
+	printPolinomio(new);
+	return 0;
 }
 
 int integrar(LinkedList *l) {
@@ -104,10 +105,11 @@ int integrar(LinkedList *l) {
 	return 0;
 }
 
-LinkedList *somar(LinkedList *l1, LinkedList *l2) {
+int somar(LinkedList *l1, LinkedList *l2) {
 	LinkedList *new = append(l1, l2);
 	new = normalizar(new);
-	return new;
+	printPolinomio(new);
+	return 0;
 }
 
 LinkedList *append(LinkedList *l1, LinkedList *l2) {
