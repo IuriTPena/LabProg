@@ -17,15 +17,13 @@ int main (int argc, char **argv) {
         LinkedList *p1 = scanPolinomio();
         printf("Inserir polinómio 2\n");
         LinkedList *p2 = scanPolinomio();
-        
-        printPolinomio(somar(p1, p2));
     }
     else{
         LinkedList *p = scanPolinomio();
         switch (oper) {
             case 0: printPolinomio(p); break;
             case 2: printPolinomio(normalizar(p)); break;
-            case 3: printPolinomio(derivar(p)); break;
+            case 3: derivar(p); break;
             case 4: integrar(p); break;
             default: printf("A sério? Entre 0 e 4, inclusivé. Não é rocket science!");
         }
