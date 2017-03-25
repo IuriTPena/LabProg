@@ -26,7 +26,7 @@ int main (int argc, char **argv) {
             case 0: printPolinomio(p); break;
             case 2: printPolinomio(normalizar(p)); break;
             case 3: printPolinomio(derivar(p)); break;
-            case 4: printPolinomio(integrar(p)); break;
+            case 4: integrar(p); break;
             default: printf("A sério? Entre 0 e 4, inclusivé. Não é rocket science!");
         }
     }
@@ -41,7 +41,7 @@ LinkedList *scanPolinomio() {
     scanf("%d", &nMono);
 
     if(nMono < 0)
-        printf("Valores negativos são considerados 0\n")
+        printf("Valores negativos são considerados 0\n");
 
     while(nMono-- > 0)
         l = makeList(scanMonomio(), l);
@@ -51,7 +51,7 @@ LinkedList *scanPolinomio() {
     scanf("%d", &nCons);
 
     if(nCons < 0)
-        printf("Valores negativos são considerados 0\n")
+        printf("Valores negativos são considerados 0\n");
 
     while(nCons-- > 0)
         l = makeList(scanConstante(), l);
