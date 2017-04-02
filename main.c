@@ -17,6 +17,7 @@ int main (int argc, char **argv) {
         LinkedList *p1 = scanPolinomio();
         printf("Inserir polinómio 2\n");
         LinkedList *p2 = scanPolinomio();
+	somar(p1, p2);
     }
     else{
         LinkedList *p = scanPolinomio();
